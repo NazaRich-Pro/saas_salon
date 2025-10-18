@@ -174,8 +174,8 @@ services:
 
   worker:
     build:
-      context: ../apps/worker
-      dockerfile: Dockerfile
+      context: ../apps
+      dockerfile: worker/Dockerfile
     container_name: beautyhub_worker
     env_file: ../.env
     environment:
@@ -200,8 +200,8 @@ services:
 
   beat:
     build:
-      context: ../apps/worker
-      dockerfile: beat.Dockerfile
+      context: ../apps
+      dockerfile: worker/beat.Dockerfile
     container_name: beautyhub_beat
     env_file: ../.env
     environment:
