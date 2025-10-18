@@ -69,16 +69,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
+import dj_database_url
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "saas"),
-        "USER": os.getenv("POSTGRES_USER", "saas"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "supersecret"),
-        "HOST": os.getenv("POSTGRES_HOST", "postgres"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        "ATOMIC_REQUESTS": True,
-    }
+    "default": dj_database_url.parse(
+        os.getenv("DATABASE_URL", "postgresql://saas:supersecret@postgres:5432/saas"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 # Password validation

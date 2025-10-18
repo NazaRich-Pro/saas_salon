@@ -20,5 +20,6 @@ opentelemetry-instrumentation-django==0.44b0
 prometheus-client==0.20.0
 requests==2.31.0
 pytz==2024.1
+dj-database-url==2.1.0
 
 
