@@ -5,10 +5,10 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json* ./
+COPY package.json ./
 
 # Install dependencies
-RUN npm ci --only=production && \
+RUN npm install --only=production && \
     npm cache clean --force
 
 # Stage 2: Builder
@@ -16,8 +16,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files first
+COPY package.json ./
+
+# Install all dependencies (including dev dependencies for build)
+RUN npm install
 
 # Copy application code
 COPY . .
