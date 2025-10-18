@@ -3,12 +3,15 @@ Tests for tenant isolation.
 Critical security tests to ensure data doesn't leak between tenants.
 """
 import pytest
+from datetime import timedelta
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework import status
 
 from apps.bookings.models import Appointment
 from apps.customers.models import Customer
 from apps.payments.models import Payment
+from apps.users.models import Staff
 
 
 @pytest.mark.tenant_isolation

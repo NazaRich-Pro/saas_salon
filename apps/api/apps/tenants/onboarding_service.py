@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from datetime import timedelta, date
 from decimal import Decimal
+from typing import Dict
 import secrets
 import string
 

@@ -118,7 +118,7 @@ class AuditLogMixin:
             entity_type=instance.__class__.__name__,
             entity_id=str(instance.pk),
             metadata={
-                'changes': getattr(serializer, 'validated_data', {}) if hasattr(self, 'serializer') else {}
+                'changes': getattr(self, 'serializer', {}).get('validated_data', {}) if hasattr(self, 'serializer') else {}
             },
             ip_address=ip_address,
             user_agent=user_agent[:500]  # Limit length
