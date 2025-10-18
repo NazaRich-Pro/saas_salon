@@ -1,5 +1,5 @@
 """ICS calendar export for appointments"""
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 import hashlib
 

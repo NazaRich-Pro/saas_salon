@@ -1,6 +1,7 @@
 """Booking serializers"""
 from rest_framework import serializers
 from decimal import Decimal
+from django.utils import timezone
 from .models import (
     Location, ServiceCategory, Service, Staff, StaffService,
     Schedule, Customer, Appointment, AppointmentService
