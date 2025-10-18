@@ -183,7 +183,6 @@ jobs:
             Production deployment ${{ job.status }}
             Version: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
-          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
       
