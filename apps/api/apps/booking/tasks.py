@@ -7,5 +7,3 @@ def archive_old_appointments():
     """Archive appointments older than 60 days"""
     # Will be implemented in Stage 13
     pass
-
-

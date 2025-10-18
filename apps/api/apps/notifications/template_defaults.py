@@ -2,9 +2,9 @@
 
 # Welcome email templates
 WELCOME_TEMPLATES = {
-    'RU': {
-        'subject': 'Добро пожаловать в %salon_name%!',
-        'body': """Здравствуйте, %owner_name%!
+    "RU": {
+        "subject": "Добро пожаловать в %salon_name%!",
+        "body": """Здравствуйте, %owner_name%!
 
 Ваш салон «%salon_name%» успешно создан: %tenant_url%
 
@@ -21,11 +21,11 @@ WELCOME_TEMPLATES = {
 Если возникнут вопросы, пишите: %support_email%
 
 С уважением,
-Команда BeautyHub"""
+Команда BeautyHub""",
     },
-    'KG': {
-        'subject': '%salon_name% га кош келиңиз!',
-        'body': """Саламатсызбы, %owner_name%!
+    "KG": {
+        "subject": "%salon_name% га кош келиңиз!",
+        "body": """Саламатсызбы, %owner_name%!
 
 Сиздин «%salon_name%» салонуңуз ийгиликтүү түзүлдү: %tenant_url%
 
@@ -42,15 +42,15 @@ WELCOME_TEMPLATES = {
 Суроолор болсо, жазыңыз: %support_email%
 
 Урмат менен,
-BeautyHub тобу"""
-    }
+BeautyHub тобу""",
+    },
 }
 
 # Reminder 24h templates
 REMINDER_24H_TEMPLATES = {
-    'RU': {
-        'subject': 'Напоминание о записи завтра',
-        'body': """Здравствуйте, %customer_name%!
+    "RU": {
+        "subject": "Напоминание о записи завтра",
+        "body": """Здравствуйте, %customer_name%!
 
 Напоминаем о вашей записи:
 
@@ -64,11 +64,11 @@ REMINDER_24H_TEMPLATES = {
 Если не сможете прийти, пожалуйста, отмените запись заранее.
 
 Ждем вас!
-%salon_name%"""
+%salon_name%""",
     },
-    'KG': {
-        'subject': 'Эртең жазылуу жөнүндө эскертүү',
-        'body': """Саламатсызбы, %customer_name%!
+    "KG": {
+        "subject": "Эртең жазылуу жөнүндө эскертүү",
+        "body": """Саламатсызбы, %customer_name%!
 
 Сиздин жазылууңуз жөнүндө эскертебиз:
 
@@ -82,15 +82,15 @@ REMINDER_24H_TEMPLATES = {
 Эгер келе албасаңыз, жазылууну алдын ала жокко чыгарыңыз.
 
 Сизди күтөбүз!
-%salon_name%"""
-    }
+%salon_name%""",
+    },
 }
 
 # Reminder 2h templates
 REMINDER_2H_TEMPLATES = {
-    'RU': {
-        'subject': 'Напоминание: запись через 2 часа',
-        'body': """Здравствуйте, %customer_name%!
+    "RU": {
+        "subject": "Напоминание: запись через 2 часа",
+        "body": """Здравствуйте, %customer_name%!
 
 Напоминаем: через 2 часа у вас запись!
 
@@ -101,11 +101,11 @@ REMINDER_2H_TEMPLATES = {
 Адрес: %location%
 
 Ждем вас!
-%salon_name%"""
+%salon_name%""",
     },
-    'KG': {
-        'subject': 'Эскертүү: 2 сааттан кийин жазылуу',
-        'body': """Саламатсызбы, %customer_name%!
+    "KG": {
+        "subject": "Эскертүү: 2 сааттан кийин жазылуу",
+        "body": """Саламатсызбы, %customer_name%!
 
 Эскертебиз: 2 сааттан кийин жазылууңуз бар!
 
@@ -116,15 +116,15 @@ REMINDER_2H_TEMPLATES = {
 Дареги: %location%
 
 Сизди күтөбүз!
-%salon_name%"""
-    }
+%salon_name%""",
+    },
 }
 
 # Follow-up templates
 FOLLOWUP_TEMPLATES = {
-    'RU': {
-        'subject': 'Спасибо за визит!',
-        'body': """Здравствуйте, %customer_name%!
+    "RU": {
+        "subject": "Спасибо за визит!",
+        "body": """Здравствуйте, %customer_name%!
 
 Спасибо, что посетили %salon_name%!
 
@@ -137,11 +137,11 @@ FOLLOWUP_TEMPLATES = {
 %tenant_url%
 
 С уважением,
-%salon_name%"""
+%salon_name%""",
     },
-    'KG': {
-        'subject': 'Келгениңиз үчүн рахмат!',
-        'body': """Саламатсызбы, %customer_name%!
+    "KG": {
+        "subject": "Келгениңиз үчүн рахмат!",
+        "body": """Саламатсызбы, %customer_name%!
 
 %salon_name% га келгениңиз үчүн рахмат!
 
@@ -154,15 +154,15 @@ FOLLOWUP_TEMPLATES = {
 %tenant_url%
 
 Урмат менен,
-%salon_name%"""
-    }
+%salon_name%""",
+    },
 }
 
 # Birthday templates
 BIRTHDAY_TEMPLATES = {
-    'RU': {
-        'subject': '🎉 С Днем Рождения, %customer_name%!',
-        'body': """Здравствуйте, %customer_name%!
+    "RU": {
+        "subject": "🎉 С Днем Рождения, %customer_name%!",
+        "body": """Здравствуйте, %customer_name%!
 
 Поздравляем вас с Днем Рождения! 🎂🎉
 
@@ -177,11 +177,11 @@ BIRTHDAY_TEMPLATES = {
 Желаем здоровья, красоты и радости!
 
 С наилучшими пожеланиями,
-%salon_name%"""
+%salon_name%""",
     },
-    'KG': {
-        'subject': '🎉 Туулган күнүңүз менен, %customer_name%!',
-        'body': """Саламатсызбы, %customer_name%!
+    "KG": {
+        "subject": "🎉 Туулган күнүңүз менен, %customer_name%!",
+        "body": """Саламатсызбы, %customer_name%!
 
 Сизди туулган күнүңүз менен куттуктайбыз! 🎂🎉
 
@@ -196,15 +196,15 @@ BIRTHDAY_TEMPLATES = {
 Ден соолук, сулуулук жана кубанычты каалайбыз!
 
 Урмат менен,
-%salon_name%"""
-    }
+%salon_name%""",
+    },
 }
 
 # Daily digest template (for salon admins)
 DAILY_DIGEST_TEMPLATES = {
-    'RU': {
-        'subject': 'Ежедневный отчет %salon_name% - %date%',
-        'body': """Здравствуйте!
+    "RU": {
+        "subject": "Ежедневный отчет %salon_name% - %date%",
+        "body": """Здравствуйте!
 
 Статистика за %date%:
 
@@ -224,11 +224,11 @@ DAILY_DIGEST_TEMPLATES = {
 Полный отчет: %tenant_url%/dashboard/reports
 
 С уважением,
-BeautyHub"""
+BeautyHub""",
     },
-    'KG': {
-        'subject': '%salon_name% - Күндөлүк отчет %date%',
-        'body': """Саламатсызбы!
+    "KG": {
+        "subject": "%salon_name% - Күндөлүк отчет %date%",
+        "body": """Саламатсызбы!
 
 %date% үчүн статистика:
 
@@ -248,17 +248,16 @@ BeautyHub"""
 Толук отчет: %tenant_url%/dashboard/reports
 
 Урмат менен,
-BeautyHub"""
-    }
+BeautyHub""",
+    },
 }
 
 # All default templates
 DEFAULT_TEMPLATES = {
-    'WELCOME': WELCOME_TEMPLATES,
-    'REMINDER_24H': REMINDER_24H_TEMPLATES,
-    'REMINDER_2H': REMINDER_2H_TEMPLATES,
-    'FOLLOWUP': FOLLOWUP_TEMPLATES,
-    'BIRTHDAY': BIRTHDAY_TEMPLATES,
-    'DAILY_DIGEST': DAILY_DIGEST_TEMPLATES,
+    "WELCOME": WELCOME_TEMPLATES,
+    "REMINDER_24H": REMINDER_24H_TEMPLATES,
+    "REMINDER_2H": REMINDER_2H_TEMPLATES,
+    "FOLLOWUP": FOLLOWUP_TEMPLATES,
+    "BIRTHDAY": BIRTHDAY_TEMPLATES,
+    "DAILY_DIGEST": DAILY_DIGEST_TEMPLATES,
 }
-

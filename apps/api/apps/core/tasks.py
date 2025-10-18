@@ -5,8 +5,8 @@ import logging
 from datetime import datetime
 
 from celery import shared_task
-from django.utils import timezone
 from django.core.cache import cache
+from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
@@ -19,17 +19,14 @@ def celery_health_check():
     """
     try:
         now = timezone.now()
-        
+
         # Update health check timestamp in cache
-        cache.set('celery_health_check', now.isoformat(), timeout=600)  # 10 minutes
-        
+        cache.set("celery_health_check", now.isoformat(), timeout=600)  # 10 minutes
+
         logger.debug(f"Celery health check: OK at {now}")
-        
-        return {
-            'status': 'healthy',
-            'timestamp': now.isoformat()
-        }
-    
+
+        return {"status": "healthy", "timestamp": now.isoformat()}
+
     except Exception as exc:
         logger.error(f"Celery health check failed: {exc}")
         raise
@@ -44,9 +41,9 @@ def cleanup_cache():
     try:
         # Django's cache doesn't have a built-in cleanup,
         # but we can clear specific patterns if needed
-        
+
         logger.info("Cache cleanup completed")
-    
+
     except Exception as exc:
         logger.error(f"Cache cleanup failed: {exc}")
 
@@ -58,14 +55,13 @@ def test_task(self, message="Hello from Celery!"):
     """
     try:
         logger.info(f"Test task executed: {message}")
-        
+
         return {
-            'status': 'success',
-            'message': message,
-            'timestamp': timezone.now().isoformat()
+            "status": "success",
+            "message": message,
+            "timestamp": timezone.now().isoformat(),
         }
-    
+
     except Exception as exc:
         logger.error(f"Test task failed: {exc}")
         raise self.retry(exc=exc)
-

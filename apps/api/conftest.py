@@ -2,12 +2,11 @@
 Pytest configuration and shared fixtures.
 """
 import pytest
+from apps.bookings.models import Location, Service, ServiceCategory, Staff
+from apps.payments.models_billing import SaaSSubscription
+from apps.tenants.models import Membership, Tenant
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
-
-from apps.tenants.models import Tenant, Membership
-from apps.bookings.models import Service, ServiceCategory, Staff, Location
-from apps.payments.models_billing import SaaSSubscription
 
 User = get_user_model()
 
@@ -22,21 +21,14 @@ def api_client():
 def tenant(db):
     """Create a test tenant."""
     tenant = Tenant.objects.create(
-        slug='test-salon',
-        name='Test Salon',
-        type='SALON',
-        seats=3,
-        status='ACTIVE'
+        slug="test-salon", name="Test Salon", type="SALON", seats=3, status="ACTIVE"
     )
-    
+
     # Create subscription
     SaaSSubscription.objects.create(
-        tenant=tenant,
-        plan_type='SALON',
-        seats=3,
-        status='ACTIVE'
+        tenant=tenant, plan_type="SALON", seats=3, status="ACTIVE"
     )
-    
+
     return tenant
 
 
@@ -44,20 +36,17 @@ def tenant(db):
 def another_tenant(db):
     """Create another tenant for isolation testing."""
     tenant = Tenant.objects.create(
-        slug='another-salon',
-        name='Another Salon',
-        type='SALON',
+        slug="another-salon",
+        name="Another Salon",
+        type="SALON",
         seats=2,
-        status='ACTIVE'
+        status="ACTIVE",
     )
-    
+
     SaaSSubscription.objects.create(
-        tenant=tenant,
-        plan_type='SALON',
-        seats=2,
-        status='ACTIVE'
+        tenant=tenant, plan_type="SALON", seats=2, status="ACTIVE"
     )
-    
+
     return tenant
 
 
@@ -65,43 +54,29 @@ def another_tenant(db):
 def user(db):
     """Create a test user."""
     return User.objects.create_user(
-        email='test@example.com',
-        password='testpass123',
-        phone='+996700111111'
+        email="test@example.com", password="testpass123", phone="+996700111111"
     )
 
 
 @pytest.fixture
 def admin_user(db, tenant):
     """Create an admin user with membership."""
-    user = User.objects.create_user(
-        email='admin@example.com',
-        password='adminpass123'
-    )
-    
+    user = User.objects.create_user(email="admin@example.com", password="adminpass123")
+
     Membership.objects.create(
-        user=user,
-        tenant=tenant,
-        role=Membership.ROLE_SALON_ADMIN
+        user=user, tenant=tenant, role=Membership.ROLE_SALON_ADMIN
     )
-    
+
     return user
 
 
 @pytest.fixture
 def staff_user(db, tenant):
     """Create a staff user with membership."""
-    user = User.objects.create_user(
-        email='staff@example.com',
-        password='staffpass123'
-    )
-    
-    Membership.objects.create(
-        user=user,
-        tenant=tenant,
-        role=Membership.ROLE_STAFF
-    )
-    
+    user = User.objects.create_user(email="staff@example.com", password="staffpass123")
+
+    Membership.objects.create(user=user, tenant=tenant, role=Membership.ROLE_STAFF)
+
     return user
 
 
@@ -118,9 +93,9 @@ def location(db, tenant):
     """Create a test location."""
     return Location.objects.create(
         tenant=tenant,
-        name='Main Location',
-        timezone='Asia/Bishkek',
-        address='Test Address'
+        name="Main Location",
+        timezone="Asia/Bishkek",
+        address="Test Address",
     )
 
 
@@ -128,9 +103,7 @@ def location(db, tenant):
 def service_category(db, tenant):
     """Create a test service category."""
     return ServiceCategory.objects.create(
-        tenant=tenant,
-        name='Hair Services',
-        sort_order=1
+        tenant=tenant, name="Hair Services", sort_order=1
     )
 
 
@@ -140,12 +113,12 @@ def service(db, tenant, service_category):
     return Service.objects.create(
         tenant=tenant,
         category=service_category,
-        name='Haircut',
+        name="Haircut",
         duration_minutes=60,
         price_kgs=1000,
         buffer_before_minutes=0,
         buffer_after_minutes=0,
-        allow_combo=True
+        allow_combo=True,
     )
 
 
@@ -155,8 +128,7 @@ def staff(db, tenant, user):
     return Staff.objects.create(
         tenant=tenant,
         user=user,
-        name='John Barber',
-        skills={'specialization': 'haircuts'},
-        commission_percent=50
+        name="John Barber",
+        skills={"specialization": "haircuts"},
+        commission_percent=50,
     )
-

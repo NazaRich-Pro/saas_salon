@@ -1,3 +1,1 @@
-default_app_config = 'apps.tenants.apps.TenantsConfig'
-
-
+default_app_config = "apps.tenants.apps.TenantsConfig"
