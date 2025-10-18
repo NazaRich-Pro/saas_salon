@@ -4,7 +4,8 @@ from typing import Optional, Dict, List
 from django.utils import timezone
 from django.db.models import Q
 
-from .models import Coupon, Customer
+from .models import Coupon
+from apps.booking.models import Customer
 
 
 class CouponApplicationError(Exception):
