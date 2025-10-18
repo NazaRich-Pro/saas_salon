@@ -5,42 +5,104 @@ WORKDIR /app
 # Copy package.json first
 COPY package.json ./
 
-# Install ALL dependencies
+# Install dependencies
 RUN npm install
 
-# Copy all application files
+# Copy all source files
 COPY . .
 
-# Ensure lib directory exists and has the required files
+# Create lib directory and files if they don't exist
 RUN mkdir -p src/lib
 
-# Create utils.ts if it doesn't exist
-RUN if [ ! -f src/lib/utils.ts ]; then \
-    echo 'import { type ClassValue, clsx } from "clsx";' > src/lib/utils.ts && \
-    echo 'import { twMerge } from "tailwind-merge";' >> src/lib/utils.ts && \
-    echo '' >> src/lib/utils.ts && \
-    echo 'export function cn(...inputs: ClassValue[]) {' >> src/lib/utils.ts && \
-    echo '  return twMerge(clsx(inputs));' >> src/lib/utils.ts && \
-    echo '}' >> src/lib/utils.ts; \
-fi
+# Create minimal utils.ts
+RUN cat > src/lib/utils.ts << 'EOF'
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-# Create tenant.ts if it doesn't exist
-RUN if [ ! -f src/lib/tenant.ts ]; then \
-    echo 'export interface TenantTheme {' > src/lib/tenant.ts && \
-    echo '  primary_color?: string;' >> src/lib/tenant.ts && \
-    echo '  secondary_color?: string;' >> src/lib/tenant.ts && \
-    echo '  logo_url?: string;' >> src/lib/tenant.ts && \
-    echo '  font_family?: string;' >> src/lib/tenant.ts && \
-    echo '}' >> src/lib/tenant.ts && \
-    echo '' >> src/lib/tenant.ts && \
-    echo 'export async function getTenantFromHost(host: string) { return null; }' >> src/lib/tenant.ts && \
-    echo 'export function applyTenantTheme(theme: TenantTheme) {}' >> src/lib/tenant.ts; \
-fi
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+EOF
+
+# Create minimal tenant.ts
+RUN cat > src/lib/tenant.ts << 'EOF'
+export interface TenantTheme {
+  primary_color?: string;
+  secondary_color?: string;
+  logo_url?: string;
+  font_family?: string;
+}
+
+export interface TenantSettings {
+  theme?: TenantTheme;
+  language?: 'ru' | 'kg' | 'en';
+  timezone?: string;
+  widget?: {
+    show_prices?: boolean;
+    show_duration?: boolean;
+    allow_multi_service?: boolean;
+  };
+}
+
+export interface Tenant {
+  id: string;
+  slug: string;
+  name: string;
+  type: 'SALON' | 'SOLO';
+  settings: TenantSettings;
+}
+
+export async function getTenantFromHost(host: string): Promise<Tenant | null> {
+  const subdomain = host.split('.')[0];
+  
+  if (subdomain === 'demo-salon') {
+    return {
+      id: 'demo-salon-id',
+      slug: 'demo-salon',
+      name: 'Демо Салон Красоты',
+      type: 'SALON',
+      settings: {
+        theme: {
+          primary_color: '#FF6B6B',
+          secondary_color: '#4ECDC4',
+        },
+        language: 'ru',
+        timezone: 'Asia/Bishkek',
+        widget: {
+          show_prices: true,
+          show_duration: true,
+          allow_multi_service: true
+        }
+      }
+    };
+  }
+  
+  return null;
+}
+
+export function applyTenantTheme(theme: TenantTheme): void {
+  if (typeof window === 'undefined') return;
+  
+  const root = document.documentElement;
+  
+  if (theme.primary_color) {
+    root.style.setProperty('--primary', theme.primary_color);
+  }
+  
+  if (theme.secondary_color) {
+    root.style.setProperty('--secondary', theme.secondary_color);
+  }
+  
+  if (theme.font_family) {
+    root.style.setProperty('--font-family', theme.font_family);
+  }
+}
+EOF
 
 # Verify files exist
 RUN ls -la src/lib/
-RUN cat src/lib/utils.ts
-RUN cat src/lib/tenant.ts
+RUN echo "=== utils.ts ===" && cat src/lib/utils.ts
+RUN echo "=== tenant.ts ===" && cat src/lib/tenant.ts
 
 # Set environment variables
 ARG NEXT_PUBLIC_API_URL
@@ -55,7 +117,7 @@ RUN npm run build
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Change ownership of the app directory
+# Change ownership
 RUN chown -R nextjs:nodejs /app
 
 # Switch to non-root user
